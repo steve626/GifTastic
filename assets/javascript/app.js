@@ -26,7 +26,28 @@ $.ajax({
     //creates gifs from choices supplied by giphy
     
     for (var i = 0; i < response.data.length; i++){
-$("#gif-area").append('<img class="gif" src="' + response.data[i].images.fixed_height_still.url +'">');
+
+//tried showDiv and #gif-area with same results. 
+var showDiv = $("<div class='show'>");
+
+var rating = response.data[i].rating;
+
+var pRating = $("<p>").text("rated: " + rating);
+console.log(pRating);
+
+$("#gif-area").append(pRating);
+
+var showGif = response.data[i].images.fixed_height_still.url;
+
+var imgGif = $('<img class="gif"').attr("src", imgGif);
+console.log(imgGif);
+
+$("#gif-area").append(imgGif);
+
+$("#gif-area").append(showDiv);
+
+
+//$("#gif-area").append('<img class="gif" src="' + response.data[i].images.fixed_height_still.url +'">');
 
     
 }
@@ -71,13 +92,14 @@ function renderButtons() {
 
 //search function to add to topics
 
-$("#search-box").on("click", function(event) {
+$("#add-show").on("click", function(event) {
     //prevents webpage from reloading on enter
     event.preventDefault();
     //gets keywords from text-box
-    var topic = $("#search-box").val().trim();
+    var show = $("#search-box").val().trim();
+    console.log(show);
     //adds new shows to array
-    topics.push(topic);
+    topics.push(show);
     renderButtons();
 });
 
