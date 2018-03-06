@@ -1,7 +1,7 @@
 //80s shows for gifs
 
 var topics = [
-"a team",
+"the a-team",
 "knight rider",
 "alf",
 "webster",
@@ -15,25 +15,30 @@ var topics = [
 function displayGifs(){
 //searches giphy api for topic in search bar
     var topic = $(this).attr("data-name");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=uAplEeI1pMEKTa6F4y4V7UbniqfCRnOK&q=" + topic +"&limit=10&offset=0&rating=G&lang=en";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=uAplEeI1pMEKTa6F4y4V7UbniqfCRnOK&q="+ topic +"&limit=10&offset=0&lang=en";
 
 //ajax call for giphy
 $.ajax({
     url: queryURL,
     method: "GET"
 }).then(function(response) {
+    console.log(response)
     //creates gifs from choices supplied by giphy
+    
     for (var i = 0; i < response.data.length; i++){
-("#gif-area").append('<img class="gif" src="' + response.data[i].images.fixed_height_still.url +'">');
-    }
+$("#gif-area").append('<img class="gif" src="' + response.data[i].images.fixed_height_still.url +'">');
+
+    
+}
 });
 
-$("#gif-area").empty();
 
-};
+
+
 //play gifs by swapping static image for gif
 $('document').on('click', '.gif', function() {
     var src = $(this).attr("src");
+    console.log(this);
     if($(this).hasClass('playing')){
         //stop
         $(this).attr('src', src.replace(/\.giv/i, "_s.gif"))
@@ -45,8 +50,12 @@ $('document').on('click', '.gif', function() {
     }
 });
 
+$("#gif-area").empty();
+
+};
+
 //function to make buttons based on topics
-function renderButtons(){
+function renderButtons() {
 
     //deletes buttons before adding new ones
     $("#button-area").empty();
@@ -66,7 +75,7 @@ $("#search-box").on("click", function(event) {
     //prevents webpage from reloading on enter
     event.preventDefault();
     //gets keywords from text-box
-    var topic = $("show-input").val().trim();
+    var topic = $("#search-box").val().trim();
     //adds new shows to array
     topics.push(topic);
     renderButtons();
