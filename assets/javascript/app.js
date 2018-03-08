@@ -1,9 +1,9 @@
 //80s shows for gifs
 
 var topics = [
+"alf",
 "the a-team",
 "knight rider",
-"alf",
 "webster",
 "magnum PI",
 "miami vice",
@@ -39,17 +39,12 @@ $("#gif-area").append(pRating);
 
 var showGif = response.data[i].images.fixed_height_still.url;
 
-var imgGif = $('<img class="gif"').attr("src", imgGif);
+var imgGif = $('<img>').attr("src", showGif);
+$(imgGif).addClass("gif");
 console.log(imgGif);
 
 $("#gif-area").append(imgGif);
-
-$("#gif-area").append(showDiv);
-
-
-//$("#gif-area").append('<img class="gif" src="' + response.data[i].images.fixed_height_still.url +'">');
-
-    
+ 
 }
 });
 
@@ -57,12 +52,12 @@ $("#gif-area").append(showDiv);
 
 
 //play gifs by swapping static image for gif
-$('document').on('click', '.gif', function() {
+$("#gif-area").on('click', '.gif', function() {
     var src = $(this).attr("src");
     console.log(this);
     if($(this).hasClass('playing')){
         //stop
-        $(this).attr('src', src.replace(/\.giv/i, "_s.gif"))
+        $(this).attr('src', src.replace(/\.gif/i, "_s.gif"))
         $(this).removeClass('playing');
     }else{
         //play
@@ -96,7 +91,7 @@ $("#add-show").on("click", function(event) {
     //prevents webpage from reloading on enter
     event.preventDefault();
     //gets keywords from text-box
-    var show = $("#search-box").val().trim();
+    var show = $("#show-input").val().trim();
     console.log(show);
     //adds new shows to array
     topics.push(show);
